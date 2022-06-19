@@ -53,12 +53,12 @@ const ViewAllButton = styled(Button)`
     font-weight: 600;
 `;
 
-const Image = styled('img')`
-    width: 'auto';
+const Image = styled('img')({
+    width: 'auto',
     height: 150
-`;
+})
 
-const Text = styled('Typography')`
+const Text = styled(Typography)`
     font-size: 14px;
     margin-top: 5px;
 `;
