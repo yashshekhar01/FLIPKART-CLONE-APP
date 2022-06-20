@@ -5,6 +5,9 @@ import CartItem from './CartItem';
 import TotalView from './TotalView';
 import EmptyCart from './EmptyCart';
 
+import { payUsingPaytm } from '../../service/api';
+import { post } from '../../utils/paytm';
+
 const Container = styled(Grid)(({ theme }) => ({
      padding: '30px 135px',
      [theme.breakpoints.down('md')]: {
@@ -45,6 +48,15 @@ const LeftComponent = styled(Grid)(({ theme }) => ({
 const Cart = () => {
      const { cartItems } = useSelector(state => state.cart);
 
+     const buyNow = async () => {
+        let response = await payUsingPaytm({ amount: 500, email: 'yashshekhar2934@gmail.com' });
+        let information = {
+          action: 'https://',
+          params: response 
+        }
+        post(information);
+      }
+
     return (
         <>
         {
@@ -60,11 +72,11 @@ const Cart = () => {
                        ))
                    }
                    <ButtonWrapper>
-                      <StyledButton>Place Order</StyledButton>
+                      <StyledButton onClick={() => buyNow()}>Place Order</StyledButton>
                    </ButtonWrapper>
                 </LeftComponent>
                 <Grid item lg={3} md={3} sm={12} xs={12}>
-                       <TotalView cartItems={CartItems} />
+                       <TotalView cartItems={cartItems} />
                 </Grid>
             </Container>
             : <EmptyCart />
